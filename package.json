@@ -1,0 +1,30 @@
+{
+  "name": "page-view-tracking",
+  "version": "0.0.1",
+  "description": "A dashboard which displays usage statistics from a served JS tracking script which users can embed on their webpages.",
+  "main": "index.js",
+  "scripts": {
+    "start:api": "ts-node src/api/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamesroseman/page-view-tracking.git"
+  },
+  "author": "James Roseman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jamesroseman/page-view-tracking/issues"
+  },
+  "homepage": "https://github.com/jamesroseman/page-view-tracking#readme",
+  "dependencies": {
+    "apollo-server-express": "^3.3.0",
+    "express": "^4.17.1",
+    "graphql": "^15.6.1",
+    "nodemon": "^2.0.13",
+    "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.2.1",
+    "type-graphql": "^1.1.1",
+    "typescript": "^4.4.3"
+  }
+}
