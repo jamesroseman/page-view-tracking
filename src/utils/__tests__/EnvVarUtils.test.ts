@@ -1,5 +1,6 @@
 import { ConnectionOptions } from "typeorm";
-import EnvVarUtils, { EnvVarNames } from "../EnvVarUtils";
+
+import EnvVarUtils from "../EnvVarUtils";
 
 describe('EnvVarUtils', () => {
   let oldEnv: NodeJS.ProcessEnv;
@@ -10,7 +11,7 @@ describe('EnvVarUtils', () => {
 
   beforeEach(() => {
     jest.resetModules();
-    process.env = {};
+    process.env = oldEnv;
   });
 
   afterAll(() => {
@@ -19,6 +20,7 @@ describe('EnvVarUtils', () => {
 
   describe('getConnectionOptions', () => {
     let validEnvironment = {
+        ...oldEnv,
         DATABASE_CACHE: 'false',
         DATABASE_SYNCHRONIZE: 'false',
         DATABASE_SSL: 'false',
@@ -31,7 +33,7 @@ describe('EnvVarUtils', () => {
     });
 
     it('should throw if no variables are present', () => {
-      process.env = {};
+      process.env = oldEnv;
       expect(() => { EnvVarUtils.getConnectionOptions() }).toThrow();
     });
 
@@ -68,6 +70,7 @@ describe('EnvVarUtils', () => {
 
   describe('getApiUrl', () => {
     let validEnvironment = {
+      ...oldEnv,
       API_URL: 'localhost',
     }
 
@@ -76,7 +79,7 @@ describe('EnvVarUtils', () => {
     });
 
     it('should throw if missing API URL', () => {
-      process.env = {};
+      process.env = oldEnv;
       expect(() => { EnvVarUtils.getApiUrl() }).toThrow();
     });
 
@@ -90,6 +93,7 @@ describe('EnvVarUtils', () => {
 
   describe('getApiPort', () => {
     let validEnvironment = {
+      ...oldEnv,
       API_PORT: '8080',
     }
 
@@ -98,7 +102,7 @@ describe('EnvVarUtils', () => {
     });
 
     it('should throw if missing API PORT', () => {
-      process.env = {};
+      process.env = oldEnv;
       expect(() => { EnvVarUtils.getApiPort() }).toThrow();
     });
 

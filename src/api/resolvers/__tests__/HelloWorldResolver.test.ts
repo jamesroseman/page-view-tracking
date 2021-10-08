@@ -9,7 +9,7 @@ describe('HelloWorldResolver', () => {
   let server: ApolloServer<ExpressContext>;
   let app: Express;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const apiServer: APIServer = await createServer();
     server = apiServer.server;
     app = apiServer.app;

@@ -11,6 +11,7 @@ module.exports = {
   ],
   modulePathIgnorePatterns: [
     'build/',
+    'src/app/'
   ],
   testRegex: 'src/.*/__tests__/.*.ts',
   coverageDirectory: 'coverage',

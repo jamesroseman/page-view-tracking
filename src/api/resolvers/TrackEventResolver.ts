@@ -1,8 +1,8 @@
 import {
   Field, ObjectType, Mutation, Resolver, ArgsType, Args,
 } from 'type-graphql';
-import { Tracker } from '../../models/Tracker';
 
+import { Tracker } from '../../models/Tracker';
 import { TrackerEvent } from '../../models/TrackerEvent';
 
 @ArgsType()
