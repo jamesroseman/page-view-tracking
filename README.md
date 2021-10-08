@@ -31,6 +31,12 @@ This design decision was intentionally made so that in deployment the FE app and
 
 ## How to Run
 
+##### Pre-Requisites
+
+You'll need a PostgreSQL database running locally on your machine with a database `pageviewtracking`. 
+
+This database name is configurable and can be changed in the `.env` file (which you will create below).
+
 ##### Install Dependencies
 
 Install the necessary dependencies by running. 
