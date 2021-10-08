@@ -7,6 +7,7 @@ import { Tracker } from './Tracker';
 export interface ITrackerEvent {
   timestamp: number;
   name: string;
+  value?: number;
 }
 
 /**
@@ -25,4 +26,7 @@ export class TrackerEvent extends BaseEntity implements ITrackerEvent {
 
   @Column()
   name: string;
+
+  @Column({ nullable: true, type: 'real' })
+  value?: number;
 }

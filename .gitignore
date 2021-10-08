@@ -2,3 +2,6 @@ node_modules/
 
 .env
 ormconfig.json
+
+# SQLite databases are created for integration testing to ensure models are correctly created.
+*.sqlite3
