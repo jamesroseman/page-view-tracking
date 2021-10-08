@@ -6,7 +6,7 @@ import { Field, ID, ObjectType } from 'type-graphql';
 import { Tracker } from './Tracker';
 
 export interface ITrackerEvent {
-  timestamp: number;
+  timestamp: string;
   name: string;
   value?: number;
 }
@@ -24,9 +24,9 @@ export class TrackerEvent extends BaseEntity implements ITrackerEvent {
   @ManyToOne((type) => Tracker)
   tracker: Tracker;
 
-  @Field(() => Number)
+  @Field(() => String)
   @Column()
-  timestamp: number;
+  timestamp: string;
 
   @Field(() => String)
   @Column()

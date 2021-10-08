@@ -39,7 +39,7 @@ export default class TrackEventResolver {
     }
 
     // Assemble the tracker event from the provided arguments.
-    const timestamp: number = (new Date()).getTime();
+    const timestamp: string = (new Date()).getTime().toString();
     const trackerEvent: TrackerEvent = TrackerEvent.create({
       tracker,
       timestamp,
