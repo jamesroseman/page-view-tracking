@@ -14,7 +14,7 @@ function trackEvent(trackerId, eventName, eventValue) {
         "operationName": "TrackEvent",
         "query": "mutation TrackEvent($trackerId: String!, $name: String!, $value:Float) {\ntrackEvent(trackerId: $trackerId, name: $name, value: $value) {\n        id\n        wasSuccessful\n      }\n    }",
         "variables": {
-          "trackerId": trackerId,
+          "trackerId": trackerId.toString(),
           "name": eventName,
           "value": eventValue,
         }
