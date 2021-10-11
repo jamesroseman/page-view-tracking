@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import { Chart, ChartOptions } from 'react-charts';
 
 import { TrackerEvent } from '../models/TrackerEvent';
@@ -51,12 +51,14 @@ const AnalyticsGraph: FunctionComponent<AnalyticsGraphProps> = ({
   );
   const [filterSelection, setFilterSelection] = useState<FilterSelection>(defaultFilterSelection);
 
+  const [shouldDisplayValue, setShouldDisplayValue] = useState(false);
+
   return (
     <div className={styles['container']}>
       {renderTimeselectors(timeSelection, setTimeSelection)}
       <div className={styles['content-container']}>
-        {renderGraph(events, timeSelection, filterSelection)}
-        {renderEventNameFilters(eventNames, filterSelection, setFilterSelection)}
+        {renderGraph(events, timeSelection, filterSelection, shouldDisplayValue)}
+        {renderEventNameFilters(eventNames, filterSelection, setFilterSelection, shouldDisplayValue, setShouldDisplayValue)}
       </div>
     </div>
   );
@@ -69,7 +71,6 @@ function renderTimeselectors(timeSelection: TimeSelection, setTimeSelection: Rea
     last30Days: false,
     last90Days: false,
   };
-
   return (
     <div className={styles['timeselectors-container']}>
       <div className={styles['timeselectors-buttons']}>
@@ -82,11 +83,12 @@ function renderTimeselectors(timeSelection: TimeSelection, setTimeSelection: Rea
   );
 }
 
-function renderGraph(events: TrackerEvent[], timeSelection: TimeSelection, filterSelection: FilterSelection) {
+function renderGraph(events: TrackerEvent[], timeSelection: TimeSelection, filterSelection: FilterSelection, shouldDisplayValue: boolean) {
   // Filter events by active filters.
   const activeFilters: string[] = Object.keys(filterSelection).filter((eventName: string) => filterSelection[eventName]);
   const filteredEvents: TrackerEvent[] = events.filter((event: TrackerEvent) => activeFilters.includes(event.name));
 
+  // Convert the events into datapoints for the analytics graph.
   const datapoints: TrackerEventDatapoint[] = filteredEvents.map((event: TrackerEvent) => ({
     date: new Date(parseInt(event.timestamp)),
     value: event.value,
@@ -107,6 +109,7 @@ function renderGraph(events: TrackerEvent[], timeSelection: TimeSelection, filte
     }
   });
 
+  // Calculate the minimum x-value based on the time selection.
   const minDate: Date = new Date();
   if (timeSelection.last24Hours) {
     minDate.setDate(minDate.getDate() - 1);
@@ -126,7 +129,7 @@ function renderGraph(events: TrackerEvent[], timeSelection: TimeSelection, filte
           min: minDate,
         },
         secondaryAxes: [{
-          getValue: (datum: TrackerEventDatapoint) => datum.count,
+          getValue: (datum: TrackerEventDatapoint) => shouldDisplayValue ? datum.value : datum.count,
           min: 0,
         }],
         data: seriesData,
@@ -140,7 +143,13 @@ function renderGraph(events: TrackerEvent[], timeSelection: TimeSelection, filte
   )
 }
 
-function renderEventNameFilters(eventNames: string[], filterSelection: FilterSelection, setFilterSelection: React.Dispatch<React.SetStateAction<FilterSelection>>) {
+function renderEventNameFilters(
+  eventNames: string[], 
+  filterSelection: FilterSelection, 
+  setFilterSelection: React.Dispatch<React.SetStateAction<FilterSelection>>,
+  shouldDisplayValue: boolean,
+  setShouldDisplayValue: React.Dispatch<React.SetStateAction<boolean>>
+) {
   // Toggle the filter. At least one filter must be selected.
   const activateDeactivateFilter: (eventName: string) => void = (eventName: string) => {
     const currentToggle: boolean = filterSelection[eventName];
@@ -157,9 +166,14 @@ function renderEventNameFilters(eventNames: string[], filterSelection: FilterSel
 
   return (
     <div className={styles['filters-container']}>
-      {eventNames.map((eventName: string) => (
-        <Button isActive={filterSelection[eventName] ?? false} label={eventName} onClick={() => activateDeactivateFilter(eventName)} />
-      ))}
+      <div className={styles['filters']}>
+        {eventNames.map((eventName: string) => (
+          <Button isActive={filterSelection[eventName] ?? false} label={eventName} onClick={() => activateDeactivateFilter(eventName)} />
+        ))}
+      </div>
+      <div className={styles['value-toggle']}>
+        <Button isActive={shouldDisplayValue} label={'Display Value'} onClick={() => setShouldDisplayValue(!shouldDisplayValue)} />
+      </div>
     </div>
   );
 }

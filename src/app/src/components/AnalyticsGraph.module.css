@@ -7,10 +7,9 @@
   display: flex;
   flex-direction: column;
 
-  background-color: #ddd;
-
   border: 1px solid #333;
   border-radius: 4px;
+  box-shadow: #ddd 0px 0px 10px 2px;
   padding: 3px;
   margin: 15px;
 }
@@ -30,19 +29,28 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+
+  padding-left: 50px;
 
   height: 100%;
-  width: 270px;
+  width: 100%;
 }
 
 .timeselectors-buttons div {
-  width: 60px;
-  height: 20px;
-
-  margin: 2px;
+  width: 100px;
+  height: 30px;
+  margin-left: -1px;
 }
 
+.timeselectors-buttons div:first-child {
+  margin-left: 0;
+  border-radius: 4px 0px 0px 4px;
+}
+
+.timeselectors-buttons div:last-child {
+  border-radius: 0px 4px 4px 0px;
+}
 
 .content-container {
   display: flex;
@@ -57,7 +65,7 @@
   display: flex;
   width: 480px;
   margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 7px;
   margin-bottom: 10px;
 
   background-color: #eee;
@@ -65,25 +73,56 @@
   border: 1px solid #ccc;
 }
 
-
 .filters-container {
   width: 150px;
-  height: 100%;
+  height: 375px;
 
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.filters {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.filters-container div {
+.filters div {
   width: 140px;
   height: 30px;
-
   text-transform: none;
-
-  margin-top: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -1px;
 }
 
-.filters-container div:first-child {
-  margin-top: 15px;
+.filters div:first-child {
+  margin-top: 0px;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.filters div:last-child {
+  border-radius: 0px 0px 4px 4px;
+}
+
+.value-toggle {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.value-toggle div {
+  width: 100px;
+  height: 20px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  font-size: 11px;
+  text-transform: uppercase;
 }

@@ -1,23 +1,33 @@
-.container {
+.active, .inactive {
   display: flex;
   justify-content: center;
   align-items: center;
 
-  margin: 3px;
-
   cursor: pointer;
 
-  background-color: aliceblue;
-
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: -0.3px;
   text-transform: uppercase;
   color: #333;
 
   border: 1px solid #888;
-  border-radius: 4px;
-
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
+}
+
+.active {
+  background-color: #eee;
+}
+
+.inactive {
+  background-color: #fff;
+}
+
+.active:hover, .inactive:hover {
+  background-color: #ddd;
+}
+
+.active:active, .inactive:active {
+  background-color: #ccc;
 }
