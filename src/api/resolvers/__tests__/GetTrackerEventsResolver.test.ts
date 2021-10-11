@@ -59,19 +59,19 @@ describe('GetTrackerEventsResolver', () => {
     const trackerEvents: TrackerEvent[] = [
       {
         tracker,
-        timestamp: 1,
+        timestamp: '1',
         name: 'PageView',
-      },
+      } as unknown as Partial<TrackerEvent>,
       {
         tracker,
-        timestamp: 2,
+        timestamp: '2',
         name: 'PageView',
-      },
+      } as unknown as Partial<TrackerEvent>,
       {
         tracker,
-        timestamp: 3,
+        timestamp: '3',
         name: 'PageView',
-      },
+      } as unknown as Partial<TrackerEvent>,
     ].map((obj) => TrackerEvent.create(obj));
     await TrackerEvent.save(trackerEvents);
 
@@ -92,15 +92,15 @@ describe('GetTrackerEventsResolver', () => {
     
     const expectedData = [
       {
-        timestamp: 1,
+        timestamp: '1',
         name: 'PageView',
       },
       {
-        timestamp: 2,
+        timestamp: '2',
         name: 'PageView',
       },
       {
-        timestamp: 3,
+        timestamp: '3',
         name: 'PageView',
       }
     ];

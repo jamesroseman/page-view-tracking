@@ -9,7 +9,6 @@
     "start:api:watch": "nodemon -w src/api -w src/models -w src/utils --ext ts --exec ts-node src/api/index.ts",
     "start:app": "npm run link:app && cp -f .env src/app && cd src/app && HOST=0.0.0.0 npm run start",
     "test:api": "jest",
-    "test:api:watch": "jest --watch --runInBand",
     "test:app": "cd src/app && npm run test",
     "link:app": "npm run unlink:app && cp -rf src/models src/app/src/ && cp -rf src/utils src/app/src/",
     "link:app:watch": "nodemon -w src/models -w src/utils --ext ts --exec npm run link:app",

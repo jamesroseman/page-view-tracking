@@ -7,6 +7,8 @@ import { Connection, createConnection } from 'typeorm';
 import { Tracker } from '../../../models/Tracker';
 import createServer, { APIServer } from '../../server/createServer';
 
+jest.unmock('../../../models/Tracker');
+
 describe('CreateTrackerResolver', () => {
   let connection: Connection;
   let server: ApolloServer<ExpressContext>;
