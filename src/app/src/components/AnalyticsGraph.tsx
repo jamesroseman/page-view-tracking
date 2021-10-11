@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { Chart, ChartOptions } from 'react-charts';
+import { Redirect } from 'react-router-dom';
 
 import { TrackerEvent } from '../models/TrackerEvent';
 import BucketUtils, { TimeseriesBucketMap, TimeseriesDatum } from '../utils/BucketUtils';
@@ -52,6 +53,10 @@ const AnalyticsGraph: FunctionComponent<AnalyticsGraphProps> = ({
   const [filterSelection, setFilterSelection] = useState<FilterSelection>(defaultFilterSelection);
 
   const [shouldDisplayValue, setShouldDisplayValue] = useState(false);
+
+  if (events.length === 0) {
+    return <Redirect to='/' />;
+  }
 
   return (
     <div className={styles['container']}>

@@ -1,30 +1,34 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 
-import './App.css';
+import styles from './App.module.css';
 
-import AnalyticsGraph from './components/AnalyticsGraph';
-import { TrackerEvent } from './models/TrackerEvent';
-import { GetTrackerEventsQuery, GetTrackerEventsQueryResponse } from './queries/GetTrackerEventsQuery';
+import EventsAnalyticsRoute from './routes/EventsAnalyticsRoute';
+import HomePageRoute from './routes/HomePageRoute';
 
 function App() {
-  const currentTrackerId: string = '3';
+  // const currentTrackerId: string = '3';
 
   return (
-    <div className="App">
-      <Query query={GetTrackerEventsQuery} variables={{ trackerId: currentTrackerId }}>
-        {(response: GetTrackerEventsQueryResponse) => renderAnalyticsGraph(response)}
-      </Query>
+    <div className={styles['container']}>
+      <Router>
+        <Switch>
+          <HomePageRoute exact={true} path={'/'} />
+          
+          <Route path='/events/:trackerId'>
+            <EventsAnalyticsRoute />
+          </Route>
+
+          <Redirect from={'*'} to={'/'} />
+        </Switch>
+      </Router>
     </div>
   );
-}
-
-function renderAnalyticsGraph(response: GetTrackerEventsQueryResponse) {
-  if (response.loading) {
-    return <div>Loading...</div>
-  }
-  const events: TrackerEvent[]  = response.data.getTrackerEvents.events;
-  return <AnalyticsGraph events={events} />
 }
 
 export default App;
